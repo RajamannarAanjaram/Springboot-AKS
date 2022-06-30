@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-mysql-k8s
+spec:
+  selector:
+    matchLabels:
+      app: spring-mysql-aks
+  template:
+    metadata:
+      labels:
+        app: spring-mysql-aks
+    spec:
+      containers:
+        - env:
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: host
+                  name: db-config
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: dbname
+                  name: db-config
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: username
+                  name: db-user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: db-user
+          image: springboot-mysql-k8s:02
+          name: spring-mysql-aks
+          ports:
+            - containerPort: 8080

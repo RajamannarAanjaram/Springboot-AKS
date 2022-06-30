@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-aks-pvc
+  labels:
+    app: mysql-aks
+    tier: database
+spec:
+  resources:
+    requests:
+      storage: 250Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+

@@ -1,0 +1,16 @@
+# Service component for MySQL
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-aksdemo
+  labels:
+    app: mysql-aks
+    tier: database
+spec:
+  selector:
+    app: mysql-aks
+    tier: database
+  clusterIP: None
+  ports:
+  - port: 3307
+    targetPort: 3307
